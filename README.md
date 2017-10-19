@@ -7,11 +7,10 @@
 - [x] 文章列表展示
 - [x] 文章分类
 - [x] 登录管理
+- [x] 权限管理
 - [x] 文章详情页展示
-- [x] 文章评论
 - [x] 管理员文章管理
 - [x] 管理员标签管理
-- [x] 管理员评论管理
 - [x] 发文（支持MarkDown语法）
 
 ***后端部分***
@@ -34,12 +33,23 @@
 
 ## TODO
 
-***后续收工后补充***
+- 文章评论 
 
 
 ## 项目运行效果（这个GIF不是连续播放的，我好烦）
 - 首页
 ![index](./record/2017-09-28%2010_25_45.gif)
+
+- 查看文章详情
+![detail](./record/checkArticleDetail.gif)
+
+- 发表文章
+![newArticle](./record/new_article.gif)
+
+- 修改文章
+![modifiedArticle](./record/modifiedArticle.gif)
+
+
 
 ## 项目介绍
 当然这是一个全栈的开源demo，在此之前写过一个[模仿大众点评的Demo](https://github.com/Nealyang/React-Fullstack-Dianping-Demo),有兄弟反应说应该加点注释。
@@ -55,19 +65,33 @@
 - [x] [实战react技术栈+express前后端博客项目（2）-- 前端react-xxx、路由配置](https://github.com/Nealyang/React-Express-Blog-Demo/blob/master/record/doc/02_%E5%89%8D%E7%AB%AFreact-xxx%E3%80%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE.md)
 - [x] [实战react技术栈+express前后端博客项目（3）-- 后端路由、代理以及静态资源托管等其他配置说明](./record/doc/03_后端路由、代理以及静态资源托管等其他配置说明.md)
 - [x] [实战react技术栈+express前后端博客项目（4）-- 博客首页代码编写以及redux-saga组织](./record/doc/04_博客首页代码编写以及redux-saga组织.md)
-- [ ] 实战react技术栈+express前后端博客项目（5）-- 前后端实现登录功能
-- [ ] 实战react技术栈+express前后端博客项目（6）-- 使用session实现免登陆+管理后台权限验证
-- [ ] 实战react技术栈+express前后端博客项目（7）-- 前端管理界面用户查看功能+后端对应接口开发
-- [ ] 实战react技术栈+express前后端博客项目（8）-- 前端管理界面标签管理功能+后端对应接口开发
-- [ ] 实战react技术栈+express前后端博客项目（9）-- 前端管理界面标签管理功能+后端对应接口开发
-- [ ] 实战react技术栈+express前后端博客项目（10）-- 前端管理界面发表文章功能
-- [ ] 实战react技术栈+express前后端博客项目（11）-- 后端接口对应文章部分的增删改查
-- [ ] 实战react技术栈+express前后端博客项目（12）-- 前端对于发文部分的完善（增删改查、分页等）
-- [ ] 实战react技术栈+express前后端博客项目（13）-- 前端对于发文部分的完善（增删改查等）
-- [ ] 实战react技术栈+express前后端博客项目（14）-- 内容详情页以及阅读数的展示
-- [ ] 实战react技术栈+express前后端博客项目（15）-- 博客添加评论功能以及对应后端实现
-- [ ] 实战react技术栈+express前后端博客项目（16）-- pm2 的使用说明
-- [ ] 实战react技术栈+express前后端博客项目（17）-- 收工
+- [x] [实战react技术栈+express前后端博客项目（5）-- 前后端实现登录功能](./record/doc/05_前后端实现登录功能.md)
+- [x] [实战react技术栈+express前后端博客项目（6）-- 使用session实现免登陆+管理后台权限验证](./record/doc/06_使用session实现免登陆+管理后台权限验证.md)
+- [x] [实战react技术栈+express前后端博客项目（7）-- 前端管理界面用户查看功能+后端对应接口开发](./record/doc/07_前端管理界面用户查看功能+后端对应接口开发.md)
+- [x] [实战react技术栈+express前后端博客项目（8）-- 前端管理界面标签管理功能+后端对应接口开发](./record/doc/08_前端管理界面标签管理功能+后端对应接口开发.md)
+- [x] [实战react技术栈+express前后端博客项目（9）-- 前端管理界面发表文章功能+后端对应接口](./record/doc/09_前端管理界面发表文章功能+后端对应接口.md)
+- [x] [开发实战react技术栈+express前后端博客项目（10）-- 前端文章列表、路由控制以及对应后端文章管理开发](./record/doc/10_前端文章列表、路由控制以及对应后端文章管理开发.md)
+- [x] [实战react技术栈+express前后端博客项目（11）-- 前端文章管理部分完善（修改、预览功能）](./record/doc/11_前端文章管理部分完善（修改、预览功能）.md)
+- [x] [实战react技术栈+express前后端博客项目（12）-- 博客添加评论功能以及对应后端实现](http://huziketang.com/books/react/lesson14)
+- [x] [实战react技术栈+express前后端博客项目（13）-- pm2的使用说明](./record/doc/12_pm2的使用说明.md)
+- [x] [实战react技术栈+express前后端博客项目（14）-- 收工](./record/doc/13_收工.md)
+
+## 环境
+
+```
+node @7.9.0
+db @3.4.0
+...
+别的就直接npm install 了
+```
+
+## 运行
+
+    git clone git@github.com:Nealyang/React-Express-Blog-Demo.git
+    
+    npm i
+    
+    npm start
 
 ## 交流
 
@@ -87,9 +111,6 @@ React技术栈：398240621
 
 ---
 
-## more
-
-![forkorstar](./record/forkStar.png)
 
 
 

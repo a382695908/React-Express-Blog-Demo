@@ -16,6 +16,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import AdminManagerUser from "../adminManagerUser/AdminManagerUser";
 import AdminNewArticle from "../adminNewArticle/AdminNewArticle";
 import AdminManagerTags from "../adminManagerTags/AdminManagerTags";
+import AdminManagerArticle from "../adminManagerArticle/AdminManagerArticle";
+import AdminManagerComment from "../adminManagerComment/AdminManagerComment";
 
 const {change_location_admin} = actions;
 
@@ -25,16 +27,9 @@ class Admin extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
     }
 
-    componentWillMount() {
-        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if(userInfo.userType !== 'admin'){
-            this.props.history.replace('/');
-        }
-    }
-
     render() {
         const {url} = this.props.match;
-        if(this.props.userInfo.userType){
+        if(this.props.userInfo&&this.props.userInfo.userType){
             return (
                 <div>
                     {
@@ -51,6 +46,8 @@ class Admin extends Component {
                                         <Route path={`${url}/managerUser`} component={AdminManagerUser}/>
                                         <Route path={`${url}/managerTags`} component={AdminManagerTags}/>
                                         <Route path={`${url}/newArticle`} component={AdminNewArticle}/>
+                                        <Route path={`${url}/managerArticle`} component={AdminManagerArticle}/>
+                                        <Route path={`${url}/managerComment`} component={AdminManagerComment}/>
                                         <Route path={`${url}/detail`} component={Detail}/>
                                         <Route component={NotFound}/>
                                     </Switch>
@@ -63,9 +60,7 @@ class Admin extends Component {
         }else{
             return <NotFound/>
         }
-
     }
-
     componentWillReceiveProps() {
         this.props.change_location_admin(window.location.pathname.replace(/\/admin/, "")||'/');
     }

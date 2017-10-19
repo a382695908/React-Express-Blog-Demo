@@ -1,19 +1,15 @@
-import React, {Component,PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {
     Redirect
 } from 'react-router-dom'
 import style from './style.css'
 import ArticleList from "./components/articelList/ArticleList";
-import Login from "./components/login/Login";
 import {Pagination} from 'antd';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {actions} from '../../reducers/index'
-import {Logined} from "./components/logined/Logined";
-import anStyle from '../../lib/animate.css'
-
-const tags = ['html', 'javascript', 'css', 'reactJs', 'redux', 'vue', ''];
+import {actions as frontActions} from '../../reducers/frontReducer'
+const {get_article_list,get_article_detail} = frontActions;
 
 class Home extends Component {
     constructor(props) {
@@ -22,48 +18,63 @@ class Home extends Component {
     }
 
     render() {
-        const {login,register} = this.props;
-        localStorage.setItem('userInfo',JSON.stringify(this.props.userInfo));
+        const {tags} = this.props;
+        localStorage.setItem('userInfo', JSON.stringify(this.props.userInfo));
         return (
-            this.props.match.params.tag && (tags.indexOf(this.props.match.params.tag) === -1 || this.props.location.pathname.lastIndexOf('\/') > 0)
+            tags.length > 1 && this.props.match.params.tag && (tags.indexOf(this.props.match.params.tag) === -1 || this.props.location.pathname.lastIndexOf('\/') > 0)
                 ?
                 <Redirect to='/404'/>
                 :
                 <div className={style.container}>
-                    <div className={style.contentContainer}>
-                        <div className={`${style.newsContainer} ${anStyle.animated} ${anStyle.fadeInUp}`}>
-                            <ArticleList/>
-                            <div className={style.paginationContainer}>
-                                <Pagination defaultCurrent={6} total={500}/>
-                            </div>
-                        </div>
-                        <div className={`${style.loginContainer} ${anStyle.animated} ${anStyle.fadeInRight}`}>
-                            {this.props.userInfo.userId?<Logined history={this.props.history} userInfo={this.props.userInfo}/>:<Login  login={login} register={register}/>}
-                        </div>
+                    <ArticleList
+                        history={this.props.history}
+                        data={this.props.articleList}
+                        getArticleDetail={this.props.get_article_detail}
+                    />
+                    <div className={style.paginationContainer}>
+                        <Pagination
+                            defaultPageSize={5}
+                            onChange={(pageNum) => {
+                                this.props.get_article_list(this.props.match.params.tag || '', pageNum);
+                            }}
+                            current={this.props.pageNum}
+                            total={this.props.total}/>
                     </div>
                 </div>
         )
     }
+
+    componentDidMount() {
+        this.props.get_article_list(this.props.match.params.tag || '')
+    }
 }
 
 Home.defaultProps = {
-    userInfo:{}
+    userInfo: {},
+    pageNum: 1,
+    total: 0,
+    articleList: []
 };
 
 Home.propsTypes = {
-    userInfo:PropTypes.object.isRequired
+    pageNum: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+    articleList: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
-    return{
-        userInfo:state.globalState.userInfo
+    return {
+        tags: state.admin.tags,
+        pageNum: state.front.pageNum,
+        total: state.front.total,
+        articleList: state.front.articleList
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return{
-        login:bindActionCreators(actions.get_login,dispatch),
-        register:bindActionCreators(actions.get_register,dispatch)
+    return {
+        get_article_list: bindActionCreators(get_article_list, dispatch),
+        get_article_detail:bindActionCreators(get_article_detail,dispatch)
     }
 }
 
